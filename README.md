@@ -2,7 +2,7 @@
 
 **Justification of the project:**
 
-this is a personal project, in this remote I make a structures like:
+this is a personal project, in this remote I maked a structures like:
 
   - Stack
   - Queue
