@@ -1,4 +1,4 @@
-package EjemploFila;
+package ExampleQueue;
 
 import Queue.IQueue;
 import Queue.Queue;

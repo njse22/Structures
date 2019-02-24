@@ -1,4 +1,4 @@
-package EjemploFila;
+package ExampleQueue;
 
 public class People {
 	
