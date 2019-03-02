@@ -85,6 +85,21 @@ class TestHash {
 		
 	}
 
+	@Test
+	void test() {
+		stageOne();
+		
+		for (int i = 0; i < 10; i++) {
+			hash.put(i, "#"+i);
+		}
+		
+		hash.put(0, "#77");
+		
+		assertTrue(hash.getObject(0).getNext().getValue().equals("#77") );
+		
+		
+		
+	}
 	
 	
 	

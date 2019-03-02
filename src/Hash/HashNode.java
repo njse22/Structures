@@ -6,11 +6,14 @@ public class HashNode<K,V> {
 	private V value; 
 	
 	private HashNode<K,V> next;
-
+	private HashNode<K,V> previus; 
+	
 	public HashNode(K key, V value) {
 		
 		this.key = key;
 		this.value = value;
+		next = null; 
+		previus = null; 
 		
 	}
 
@@ -38,8 +41,16 @@ public class HashNode<K,V> {
 		this.next = next;
 	}
 	
-	
-	
+
+	public HashNode<K, V> getPrevius() {
+		return previus;
+	}
+
+	public void setPrevius(HashNode<K, V> previus) {
+		this.previus = previus;
+	}
+
+		
 	
 	
 }

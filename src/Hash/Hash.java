@@ -13,12 +13,22 @@ public class Hash<K,V> implements IHash<K, V> {
 		this.list = new ArrayList<>(initialSize);
 		this.size = 0; 
 	}
-	
-	
+		
 	@Override
 	public void put(K key, V value) {
-		list.add(new HashNode<K,V>(key, value) ) ; 
-		size++; 
+		
+		
+		HashNode<K, V> hash = new HashNode<K,V>(key, value); 
+		if(validar(hash) != null) {
+			list.add( hash ) ; 
+			size++; 
+			
+		}else {
+			validar(hash).setPrevius(hash);
+			hash.setNext(validar(hash));
+			
+		}
+		
 		
 	}
 
@@ -60,6 +70,18 @@ public class Hash<K,V> implements IHash<K, V> {
 		
 	}
 
+	public HashNode<K, V > getObject(K key){
+		for (HashNode<K, V> hashNode : list) {
+			if (hashNode.getKey() == key) {
+				return hashNode; 
+			}
+			
+		}
+		
+		return null;
+		 
+	}
+	
 	@Override
 	public int getSize() {
 		return size;
@@ -72,6 +94,17 @@ public class Hash<K,V> implements IHash<K, V> {
 		
 	}
 
+	private HashNode<K, V> validar(HashNode<K, V> hash) {
+		HashNode<K, V> temp = null; 
+		for (HashNode<K, V> hashNode : list) {
+			if(hashNode.getKey().equals(hash.getKey())) {
+				temp = hashNode;  
+				break;  
+			}
+		}
+		
+		return temp;  
+	}
 	
 	
 	
