@@ -1,11 +1,9 @@
 package TetsStructures;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-
+import static org.junit.Assert.assertFalse;
 import org.junit.jupiter.api.Test;
-
 import Hash.Hash;
 import Hash.HashIsEmptyException;
 import Hash.NonexistentKeyException;
@@ -18,6 +16,22 @@ class TestHash {
 		hash = new Hash<Integer, String>();
 		
 	}	
+	
+	private void stageTwo()  {
+		hash = new Hash<Integer, String>();
+	
+		for (int i = 0; i < 10; i++) {
+			hash.put(i, "#"+i);
+		}
+	
+		for (int i = 0; i < 10; i++) {
+			hash.put(i, "#"+i+i);
+		}
+		
+		
+	
+	}
+	
 	
 	@Test
 	void testOne() {
@@ -86,7 +100,7 @@ class TestHash {
 	}
 
 	@Test
-	void test() {
+	void testThree() {
 		stageOne();
 		
 		for (int i = 0; i < 10; i++) {
@@ -99,6 +113,28 @@ class TestHash {
 
 	}
 	
+	@Test
+	void testFour() {
+		stageTwo();
+		
+		for (int i = 0; i < 10; i++) {
+			
+				
+			System.out.println(hash.getObject(i).getValue());	 
+			
+		}
+		
+		System.out.println(hash.getObject(0).getNext().getValue());
+		
+		for (int i = 0; i < 1 ; i++) {
+
+			assertTrue(hash.getObject(i).getValue().equals("#"+i+i));
+
+		}
+		
+		
+		
+	}
 	
 	
 }

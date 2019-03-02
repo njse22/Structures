@@ -7,6 +7,7 @@ public class HashNode<K,V> {
 	
 	private HashNode<K,V> next;
 	private HashNode<K,V> previus; 
+	 
 	
 	public HashNode(K key, V value) {
 		
@@ -50,7 +51,5 @@ public class HashNode<K,V> {
 		this.previus = previus;
 	}
 
-		
-	
 	
 }

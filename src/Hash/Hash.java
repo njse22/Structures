@@ -18,16 +18,16 @@ public class Hash<K,V> implements IHash<K, V> {
 	public void put(K key, V value) {
 		
 		HashNode<K, V> hash = new HashNode<K,V>(key, value); 
-		if(validar(hash) != null) {
+		if(  validar(hash) != null  /*existColition(key)*/) {
 			validar(hash).setPrevius(hash);
 			hash.setNext(validar(hash));
+			size++; 
 			
 		}else {
 			list.add( hash ) ; 
 			size++; 
 			
 		}
-		
 		
 	}
 
@@ -37,11 +37,22 @@ public class Hash<K,V> implements IHash<K, V> {
 			throw new HashIsEmptyException("the hash is empty, you can't remove elements");
 		}else {
 			int control = size; 
+			HashNode<K, V> tempHash = getObject(key);
 			
 			for (int i = 0; i < list.size(); i++) {
 				HashNode<K, V> temp = list.get(i);
+				
 				if(list.get(i).getKey() == key) {
-					list.remove(temp); 
+					if(tempHash.getNext() != null) {
+						tempHash.getNext().setPrevius(null);
+						list.add(tempHash.getNext()); 
+						list.remove(temp);
+						
+					}else {
+						list.remove(temp);
+					
+					}
+					
 					size--;
 				}
 			}
@@ -49,11 +60,10 @@ public class Hash<K,V> implements IHash<K, V> {
 			if(control == size) {
 				throw new NonexistentKeyException("nonexistent this key, you can't remove this element ");
 			}
-			
 				
-			}
-	
 		}
+
+	}
 					
 
 	@Override
@@ -104,6 +114,20 @@ public class Hash<K,V> implements IHash<K, V> {
 		
 		return temp;  
 	}
+	
+//	private boolean existColition(K key) {
+//		
+//		boolean existColition = false; 
+//		for (int i = 0; i < 1; i++) {
+//
+//			if(list.get(i).getKey().equals(key)) {
+//				existColition = true;
+//				
+//			} 
+//		}
+//		
+//		return existColition; 
+//	}
 	
 	
 	
