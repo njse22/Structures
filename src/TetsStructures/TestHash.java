@@ -95,10 +95,8 @@ class TestHash {
 		
 		hash.put(0, "#77");
 		
-		assertTrue(hash.getObject(0).getNext().getValue().equals("#77") );
-		
-		
-		
+		assertTrue(hash.getObject(0).getPrevius().getValue().equals("#77"));
+
 	}
 	
 	

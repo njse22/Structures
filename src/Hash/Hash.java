@@ -17,15 +17,14 @@ public class Hash<K,V> implements IHash<K, V> {
 	@Override
 	public void put(K key, V value) {
 		
-		
 		HashNode<K, V> hash = new HashNode<K,V>(key, value); 
 		if(validar(hash) != null) {
-			list.add( hash ) ; 
-			size++; 
-			
-		}else {
 			validar(hash).setPrevius(hash);
 			hash.setNext(validar(hash));
+			
+		}else {
+			list.add( hash ) ; 
+			size++; 
 			
 		}
 		

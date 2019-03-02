@@ -12,5 +12,5 @@ public interface IHash<K, V> {
 	
 	public boolean isEmpty(); 
 	
-//	public void hashFuntion(); 
+ 
 }
