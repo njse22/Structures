@@ -4,31 +4,46 @@ import java.util.ArrayList;
 
 public class Hash<K ,V> implements IHash<K, V> {
 
+public static final int INITIAL_SIZE = 18;
+	
 	private ArrayList<HashNode<K, V>> list ; 
-	private int initialSize; 
 	private int size; 
 	
 	public Hash() {
-		this.initialSize = 10; 
-		this.list = new ArrayList<>(initialSize);
-		this.size = 0; 
+		this.list = new ArrayList<>();
+		initLis();
+		this.size = 0;
 	}
 		
 	@Override
 	public void put(K key, V value) {
 		
-		HashNode<K, V> hash = new HashNode<K,V>(key, value); 
-		HashNode<K, V> actual = validar(hash);
-		if(  actual != null  /*existColition(key)*/) {
-			
-			actual.setNext(hash);
-			hash.setPrevius(actual);
-			
+		int index = h(key);
+		HashNode<K, V> nodeAdd = new HashNode<K, V>(key, value);
+//		System.out.println(index);
+		if(list.get(index) != null) {
+			list.get(index).add(nodeAdd);
+			size++;
 		}else {
-			list.add( hash ) ; 
-			size++; 
-			
+			list.add(index,nodeAdd);
+			size++;
 		}
+		
+		
+//		
+//		
+//		HashNode<K, V> hash = new HashNode<K,V>(key, value); 
+//		HashNode<K, V> actual = validar(hash);
+//		if(  actual != null  /*existColition(key)*/) {
+//			
+//			actual.setNext(hash);
+//			hash.setPrevius(actual);
+//			
+//		}else {
+//			list.add( hash ) ; 
+//			size++; 
+//			
+//		}
 		
 	}
 
@@ -115,20 +130,22 @@ public class Hash<K ,V> implements IHash<K, V> {
 	}
 	
 	public int h(K key) {
-		int index = 0;
-		
-		if(key.hashCode() >  list.size()) {
+		int index = key.hashCode();
+//		System.out.println(index);
+		if(index >  INITIAL_SIZE) {
 			index = key.hashCode()%list.size();
-		}else if (key.hashCode() < 1 ) {
+		}else if (index < 1 ) {
 			index = key.hashCode()* list.size();
-		}else {
-			index = key.hashCode();
 		}
 		
-		return index;
+		return index + 1;
 	}
 	
-	
+	public void initLis() {
+		for (int i = 0; i < INITIAL_SIZE; i++) {
+			list.add(null);
+		}
+	}
 	
 //	private boolean existColition(K key) {
 //		
@@ -144,5 +161,6 @@ public class Hash<K ,V> implements IHash<K, V> {
 //		return existColition; 
 //	}
 	
+
 	
 }
