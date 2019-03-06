@@ -162,7 +162,7 @@ class TestHash {
 //			try {
 //				hash.remove(i);
 //			}catch (Exception e) {
-//				fail(" No deberÃ­a pasar "); 
+//				fail(" No debería pasar "); 
 //			}
 //				
 //		}
@@ -211,7 +211,7 @@ class TestHash {
 //			try {
 //				hash.remove(i);
 //			}catch (Exception e) {
-//				fail(" No deberÃ­a pasar "); 
+//				fail(" No debería pasar "); 
 //			}
 //				
 //		}
