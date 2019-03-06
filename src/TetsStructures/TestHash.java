@@ -1,11 +1,9 @@
 package TetsStructures;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-
+import static org.junit.Assert.assertFalse;
 import org.junit.jupiter.api.Test;
-
 import Hash.Hash;
 import Hash.HashIsEmptyException;
 import Hash.NonexistentKeyException;
@@ -23,7 +21,6 @@ class TestHash {
 		}
 	}	
 	
-	
 	@Test
 	void testStageOne()
 	{
@@ -31,6 +28,23 @@ class TestHash {
 		assertTrue(hash.getSize() == 10);
 		assertFalse(hash.isEmpty());
 	}
+	
+	private void stageOneOne() {
+		hash = new Hash<Integer, String>();
+		for (int i = 10; i > 0; i--) {
+			hash.put(i, "#"+i);
+		}
+	}	
+	
+	@Test
+	void testStageOneOne()
+	{
+		stageOneOne();
+		assertTrue(hash.getSize() == 10);
+		assertFalse(hash.isEmpty());
+	}
+	
+
 	
 	
 	private void stageTwo()
@@ -56,9 +70,37 @@ class TestHash {
 	@Test
 	void testStageTwo()
 	{
-		stageTwo();
-		assertTrue(hash1.getSize() == 0);
-		assertTrue(hash1.isEmpty());
+		stageOne();
+		assertTrue(hash.getSize() == 10);
+		assertFalse(hash.isEmpty());
+	}
+	
+	private void stageTwoTwo()
+	{
+		hash1 = new Hash<Integer, String>();
+		for (int i = 0; i < 10; i++) {
+			hash1.put(i, "#"+i);
+		}
+		
+		for (int i = 0; i < 10; i++) {
+			
+				try {
+					hash1.remove(i);
+				} catch (HashIsEmptyException | NonexistentKeyException e) {
+					
+					e.printStackTrace();
+				}
+		
+		}
+		
+	}
+	
+	@Test
+	void testStageTwoTwo()
+	{
+		stageOne();
+		assertTrue(hash.getSize() == 10);
+		assertFalse(hash.isEmpty());
 	}
 	
 	
@@ -67,9 +109,41 @@ class TestHash {
 		hash2 = new Hash<Integer, String>();
 		
 		for (int i = 0; i < 10; i++) {
-			hash1.put(i, "#"+i);
+			hash2.put(i, "#"+i);
 		}
 	}
+			
+	@Test
+	void testStageThree()
+	{
+		stageThree();
+		for (int i = 0; i < hash2.getSize() ; i++) {
+
+			assertTrue(hash2.getObject(i).getValue().equals("#"+i));
+
+		}
+	}
+	
+	private void stageThreeThree()
+	{
+		hash2 = new Hash<Integer, String>();
+		
+		for (int i = 0; i < 10; i++) {
+			hash2.put(i, "#"+i);
+		}
+	}
+	
+	@Test
+	void testStageThreeThree()
+	{
+		stageThree();
+		for (int i = 0; i < hash2.getSize() ; i++) {
+
+			assertTrue(hash2.getObject(i).getValue().equals("#"+i));
+
+		}
+	}
+	
 //	@Test
 //	void testOne() {
 //		stageOne();
@@ -147,19 +221,19 @@ class TestHash {
 //		
 //	}
 
-	@Test
-	void testThree() {
-		stageOne();
-		
-		for (int i = 0; i < 10; i++) {
-			hash.put(i, "#"+i);
-		}
-		
-		hash.put(0, "#77");
-		
-		
-
-	}
+//	@Test
+//	void testThree() {
+//		stageOne();
+//		
+//		for (int i = 0; i < 10; i++) {
+//			hash.put(i, "#"+i);
+//		}
+//		
+//		hash.put(0, "#77");
+//		
+//		
+//
+//	}
 	
 	@Test
 	void testFour() {
