@@ -17,22 +17,6 @@ class TestHash {
 		
 	}	
 	
-	private void stageTwo()  {
-		hash = new Hash<Integer, String>();
-	
-		for (int i = 0; i < 10; i++) {
-			hash.put(i, "#"+i);
-		}
-	
-		for (int i = 0; i < 10; i++) {
-			hash.put(i, "#"+i+i);
-		}
-		
-		
-	
-	}
-	
-	
 	@Test
 	void testOne() {
 		stageOne();
@@ -109,24 +93,26 @@ class TestHash {
 		
 		hash.put(0, "#77");
 		
-		assertTrue(hash.getObject(0).getPrevius().getValue().equals("#77"));
+		
 
 	}
 	
 	@Test
 	void testFour() {
-		stageTwo();
+		stageOne();
 		
 		for (int i = 0; i < 10; i++) {
-			
+			try {
+				hash.put(i, "#"+i);
+				hash.put(i ,"#"+i+i); 
+				hash.remove(i);
 				
-			System.out.println(hash.getObject(i).getValue());	 
+				
+			} catch (HashIsEmptyException | NonexistentKeyException e) {}
 			
 		}
 		
-		System.out.println(hash.getObject(0).getNext().getValue());
-		
-		for (int i = 0; i < 1 ; i++) {
+		for (int i = hash.getSize(); i >= hash.getSize() ; i--) {
 
 			assertTrue(hash.getObject(i).getValue().equals("#"+i+i));
 

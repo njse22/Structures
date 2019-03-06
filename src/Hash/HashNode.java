@@ -7,7 +7,7 @@ public class HashNode<K,V> {
 	
 	private HashNode<K,V> next;
 	private HashNode<K,V> previus; 
-	 
+	private int size; 
 	
 	public HashNode(K key, V value) {
 		
@@ -15,6 +15,7 @@ public class HashNode<K,V> {
 		this.value = value;
 		next = null; 
 		previus = null; 
+		size = 1; 
 		
 	}
 
@@ -51,5 +52,16 @@ public class HashNode<K,V> {
 		this.previus = previus;
 	}
 
+	public int getSize() {
+		return size;
+	}
+
+	public void incrementSize(int size) {
+		this.size += size;
+	}
+	
+	
+
+	
 	
 }

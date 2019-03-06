@@ -18,10 +18,11 @@ public class Hash<K,V> implements IHash<K, V> {
 	public void put(K key, V value) {
 		
 		HashNode<K, V> hash = new HashNode<K,V>(key, value); 
-		if(  validar(hash) != null  /*existColition(key)*/) {
-			validar(hash).setPrevius(hash);
-			hash.setNext(validar(hash));
-			size++; 
+		HashNode<K, V> actual = validar(hash);
+		if(  actual != null  /*existColition(key)*/) {
+			
+			actual.setNext(hash);
+			hash.setPrevius(actual);
 			
 		}else {
 			list.add( hash ) ; 
@@ -37,17 +38,20 @@ public class Hash<K,V> implements IHash<K, V> {
 			throw new HashIsEmptyException("the hash is empty, you can't remove elements");
 		}else {
 			int control = size; 
-			HashNode<K, V> tempHash = getObject(key);
 			
 			for (int i = 0; i < list.size(); i++) {
 				HashNode<K, V> temp = list.get(i);
 				
 				if(list.get(i).getKey() == key) {
-					if(tempHash.getNext() != null) {
-						tempHash.getNext().setPrevius(null);
-						list.add(tempHash.getNext()); 
-						list.remove(temp);
+					if(validar(temp) != null) {
 						
+						
+						
+						
+						list.remove(temp);
+						temp.getNext().setPrevius(null);
+						list.add(temp.getNext()); 
+					
 					}else {
 						list.remove(temp);
 					
