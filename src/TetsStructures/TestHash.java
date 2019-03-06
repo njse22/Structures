@@ -14,15 +14,7 @@ class TestHash {
 	
 	private void stageOne() {
 		hash = new Hash<Integer, String>();
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-		
-	}	
-	
-=======
-=======
-		
->>>>>>> Stashed changes
+
 		for (int i = 0; i < 10; i++) {
 			hash.put(i, "#"+i);
 		}
@@ -41,8 +33,7 @@ class TestHash {
 		assertTrue(hash.isEmpty());
 	}
 	
-	
->>>>>>> master
+
 	@Test
 	void testOne() {
 		stageOne();
@@ -127,13 +118,6 @@ class TestHash {
 				hash.put(i, "#"+i);
 				hash.put(i ,"#"+i+i); 
 				hash.remove(i);
-<<<<<<< HEAD
-				
-				
-=======
-				
-				
->>>>>>> master
 			} catch (HashIsEmptyException | NonexistentKeyException e) {}
 			
 		}
