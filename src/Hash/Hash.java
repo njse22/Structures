@@ -1,18 +1,18 @@
 package Hash;
 
-import java.util.ArrayList;
-
 public class Hash<K ,V> implements IHash<K, V> {
 
 public static final int INITIAL_SIZE = 18;
 	
-	private ArrayList<HashNode<K, V>> list ; 
-	private int size; 
+	private int size;
 	
+	private HashNode<K, V>[] list;
+	
+	@SuppressWarnings("unchecked")
 	public Hash() {
-		this.list = new ArrayList<>();
-		initLis();
 		this.size = 0;
+		list = new HashNode[INITIAL_SIZE];
+		
 	}
 		
 	@Override
@@ -20,64 +20,21 @@ public static final int INITIAL_SIZE = 18;
 		
 		int index = h(key);
 		HashNode<K, V> nodeAdd = new HashNode<K, V>(key, value);
-//		System.out.println(index);
-		if(list.get(index) != null) {
-			list.get(index).add(nodeAdd);
+
+		if(list[index]!= null) {
+			list[index].add(nodeAdd);
 			size++;
 		}else {
-			list.add(index,nodeAdd);
+			list[index] = nodeAdd;
 			size++;
 		}
 		
-		
-//		
-//		
-//		HashNode<K, V> hash = new HashNode<K,V>(key, value); 
-//		HashNode<K, V> actual = validar(hash);
-//		if(  actual != null  /*existColition(key)*/) {
-//			
-//			actual.setNext(hash);
-//			hash.setPrevius(actual);
-//			
-//		}else {
-//			list.add( hash ) ; 
-//			size++; 
-//			
-//		}
 		
 	}
 
 	@Override
 	public void remove(K key) throws HashIsEmptyException, NonexistentKeyException {
-		if(size == 0) {
-			throw new HashIsEmptyException("the hash is empty, you can't remove elements");
-		}else {
-			int control = size; 
 			
-			for (int i = 0; i < list.size(); i++) {
-				HashNode<K, V> temp = list.get(i);
-				
-				if(list.get(i).getKey() == key) {
-					if(validar(temp) != null) {
-						
-						list.add(i, temp.getNext());
-						temp.getNext().setPrevius(null);
-						list.remove(temp); 
-						
-					}else {
-						list.remove(temp);
-					}
-					
-					size--;
-				}
-			}
-			
-			if(control == size) {
-				throw new NonexistentKeyException("nonexistent this key, you can't remove this element ");
-			}
-				
-		}
-
 	}
 
 	@Override
@@ -131,36 +88,15 @@ public static final int INITIAL_SIZE = 18;
 	
 	public int h(K key) {
 		int index = key.hashCode();
-//		System.out.println(index);
+
 		if(index >  INITIAL_SIZE) {
-			index = key.hashCode()%list.size();
+			index = key.hashCode()%INITIAL_SIZE;
 		}else if (index < 1 ) {
-			index = key.hashCode()* list.size();
+			index = key.hashCode()*INITIAL_SIZE;
 		}
 		
 		return index + 1;
 	}
 	
-	public void initLis() {
-		for (int i = 0; i < INITIAL_SIZE; i++) {
-			list.add(null);
-		}
-	}
-	
-//	private boolean existColition(K key) {
-//		
-//		boolean existColition = false; 
-//		for (int i = 0; i < 1; i++) {
-//
-//			if(list.get(i).getKey().equals(key)) {
-//				existColition = true;
-//				
-//			} 
-//		}
-//		
-//		return existColition; 
-//	}
-	
-
 	
 }
