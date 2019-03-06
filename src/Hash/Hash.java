@@ -44,10 +44,8 @@ public class Hash<K ,V> implements IHash<K, V> {
 				
 				if(list.get(i).getKey() == key) {
 					if(validar(temp) != null) {
-						list.remove(temp);
-
+						
 						list.add(i, temp.getNext());
-
 						temp.getNext().setPrevius(null);
 						list.remove(temp); 
 						
