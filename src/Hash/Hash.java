@@ -44,19 +44,10 @@ public class Hash<K ,V> implements IHash<K, V> {
 				
 				if(list.get(i).getKey() == key) {
 					if(validar(temp) != null) {
-<<<<<<< HEAD
-						
-<<<<<<< Updated upstream
-						
-						
-						
-=======
-						
->>>>>>> master
 						list.remove(temp);
-=======
+
 						list.add(i, temp.getNext());
->>>>>>> Stashed changes
+
 						temp.getNext().setPrevius(null);
 						list.remove(temp); 
 						
@@ -125,7 +116,6 @@ public class Hash<K ,V> implements IHash<K, V> {
 		return temp;  
 	}
 	
-<<<<<<< Updated upstream
 	public int h(K key) {
 		int index = 0;
 		
@@ -156,8 +146,5 @@ public class Hash<K ,V> implements IHash<K, V> {
 //		return existColition; 
 //	}
 	
-	
-=======
->>>>>>> Stashed changes
 	
 }
