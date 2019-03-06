@@ -2,7 +2,7 @@ package Hash;
 
 import java.util.ArrayList;
 
-public class Hash<K,V> implements IHash<K, V> {
+public class Hash<K ,V> implements IHash<K, V> {
 
 	private ArrayList<HashNode<K, V>> list ; 
 	private int initialSize; 
@@ -118,6 +118,22 @@ public class Hash<K,V> implements IHash<K, V> {
 		
 		return temp;  
 	}
+	
+	public int h(K key) {
+		int index = 0;
+		
+		if(key.hashCode() >  list.size()) {
+			index = key.hashCode()%list.size();
+		}else if (key.hashCode() < 1 ) {
+			index = key.hashCode()* list.size();
+		}else {
+			index = key.hashCode();
+		}
+		
+		return index;
+	}
+	
+	
 	
 //	private boolean existColition(K key) {
 //		

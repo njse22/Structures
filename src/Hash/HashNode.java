@@ -56,8 +56,16 @@ public class HashNode<K,V> {
 		return size;
 	}
 
-	public void incrementSize(int size) {
-		this.size += size;
+	public void incrementSize() {
+		size++;
+	}
+	
+	public void add(HashNode<K, V> agregate) {
+		if(next == null) {
+			next = agregate;
+		}else {
+			next.add(agregate);
+		}
 	}
 	
 	
