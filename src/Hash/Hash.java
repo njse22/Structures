@@ -4,9 +4,15 @@ public class Hash<K ,V> implements IHash<K, V> {
 
 public static final int INITIAL_SIZE = 18;
 	
+<<<<<<< Updated upstream
 	private int size;
 	
 	private HashNode<K, V>[] list;
+=======
+	private ArrayList<HashNode<K, V>> list ; 
+	private int size; 
+ 
+>>>>>>> Stashed changes
 	
 	@SuppressWarnings("unchecked")
 	public Hash() {
@@ -39,8 +45,9 @@ public static final int INITIAL_SIZE = 18;
 
 	@Override
 	public V get(K key) {
+		int index = h(key); 
 		for (HashNode<K, V> hashNode : list) {
-			if (hashNode.getKey() == key) {
+			if (hashNode.getKey().equals(index)) {
 				return hashNode.getValue(); 
 			}
 			
@@ -48,18 +55,6 @@ public static final int INITIAL_SIZE = 18;
 		
 		return null;
 		
-	}
-
-	public HashNode<K, V > getObject(K key){
-		for (HashNode<K, V> hashNode : list) {
-			if (hashNode.getKey() == key) {
-				return hashNode; 
-			}
-			
-		}
-		
-		return null;
-		 
 	}
 	
 	@Override
@@ -98,5 +93,31 @@ public static final int INITIAL_SIZE = 18;
 		return index + 1;
 	}
 	
+<<<<<<< Updated upstream
+=======
+	public void initLis() {
+		HashNode<K, V> empty = new HashNode<K,V>(null, null); 
+		
+		for (int i = 0; i < INITIAL_SIZE; i++) {
+			list.add(null);
+		}
+	}
+	
+//	private boolean existColition(K key) {
+//		
+//		boolean existColition = false; 
+//		for (int i = 0; i < 1; i++) {
+//
+//			if(list.get(i).getKey().equals(key)) {
+//				existColition = true;
+//				
+//			} 
+//		}
+//		
+//		return existColition; 
+//	}
+	
+
+>>>>>>> Stashed changes
 	
 }

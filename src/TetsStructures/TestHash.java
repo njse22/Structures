@@ -11,254 +11,95 @@ import Hash.NonexistentKeyException;
 class TestHash {
 
 	private Hash<Integer, String> hash; 
-	private Hash<Integer, String> hash1; 
-	private Hash<Integer, String> hash2; 
+	private Hash<Character, String> hash1; 
+	private Hash<Integer, Integer> hash2;
 	
-	private void stageOne() {
-		hash = new Hash<Integer, String>();
+	private void setUpStageOne() {
+		hash = new Hash<Integer, String>(); 
 		for (int i = 0; i < 10; i++) {
 			hash.put(i, "#"+i);
-		}
-	}	
-	
-	@Test
-	void testStageOne()
-	{
-		stageOne();
-		assertTrue(hash.getSize() == 10);
-		assertFalse(hash.isEmpty());
+		}		
 	}
 	
-	private void stageOneOne() {
-		hash = new Hash<Integer, String>();
-		for (int i = 10; i > 0; i--) {
-			hash.put(i, "#"+i);
-		}
-	}	
-	
-	@Test
-	void testStageOneOne()
-	{
-		stageOneOne();
-		assertTrue(hash.getSize() == 10);
-		assertFalse(hash.isEmpty());
-	}
-	
-
-	
-	
-	private void stageTwo()
-	{
-		hash1 = new Hash<Integer, String>();
-		for (int i = 0; i < 10; i++) {
+	private void setUpstageTwo() {
+		hash1 = new Hash<Character, String>(); 
+		
+		for (char i = 0; i < 10; i++) {
 			hash1.put(i, "#"+i);
 		}
 		
+	}
+	
+	private void setUpStageThree() {
+		hash2 = new Hash<Integer, Integer>(); 
 		for (int i = 0; i < 10; i++) {
-			
-				try {
-					hash1.remove(i);
-				} catch (HashIsEmptyException | NonexistentKeyException e) {
-					
-					e.printStackTrace();
-				}
-		
+			hash2.put(i, i*i);
 		}
 		
 	}
 	
+	private void setUpStageFour() {
+		hash = new Hash<Integer, String>(); 
+	}
+	
 	@Test
-	void testStageTwo()
-	{
-		stageOne();
+	void testOne() {
+		setUpStageOne();
 		assertTrue(hash.getSize() == 10);
-		assertFalse(hash.isEmpty());
+		for (int i = 0; i < hash.getSize(); i++) {
+			assertTrue(hash.get(11).equals("#"+i) );
+		}
 	}
 	
-	private void stageTwoTwo()
-	{
-		hash1 = new Hash<Integer, String>();
-		for (int i = 0; i < 10; i++) {
-			hash1.put(i, "#"+i);
-		}
-		
-		for (int i = 0; i < 10; i++) {
-			
-				try {
-					hash1.remove(i);
-				} catch (HashIsEmptyException | NonexistentKeyException e) {
-					
-					e.printStackTrace();
-				}
-		
+	@Test
+	void testTwo() {
+		setUpstageTwo();
+		assertTrue(hash1.getSize() == 10);
+		for (char i = 0; i < hash1.getSize(); i++) {
+			assertTrue(hash1.get(i).equals("#"+i) );
 		}
 		
 	}
 	
 	@Test
-	void testStageTwoTwo()
-	{
-		stageOne();
-		assertTrue(hash.getSize() == 10);
-		assertFalse(hash.isEmpty());
-	}
-	
-	
-	private void stageThree()
-	{
-		hash2 = new Hash<Integer, String>();
+	void testThree() {
+		setUpStageThree();
+		assertTrue(hash2.getSize() == 10);
+		for (int i = 0; i < hash2.getSize(); i++) {
+			assertTrue(hash2.get(i).equals(i*i) );
+		}
 		
-		for (int i = 0; i < 10; i++) {
-			hash2.put(i, "#"+i);
-		}
 	}
-			
-	@Test
-	void testStageThree()
-	{
-		stageThree();
-		for (int i = 0; i < hash2.getSize() ; i++) {
-
-			assertTrue(hash2.getObject(i).getValue().equals("#"+i));
-
-		}
-	}
-	
-	private void stageThreeThree()
-	{
-		hash2 = new Hash<Integer, String>();
-		
-		for (int i = 0; i < 10; i++) {
-			hash2.put(i, "#"+i);
-		}
-	}
-	
-	@Test
-	void testStageThreeThree()
-	{
-		stageThree();
-		for (int i = 0; i < hash2.getSize() ; i++) {
-
-			assertTrue(hash2.getObject(i).getValue().equals("#"+i));
-
-		}
-	}
-	
-//	@Test
-//	void testOne() {
-//		stageOne();
-//		
-//		assertTrue(hash.getSize() == 0);
-//		assertTrue(hash.isEmpty());
-//	
-//		assertTrue(hash.getSize() == 10);
-//		assertFalse(hash.isEmpty());
-//		
-//		assertTrue(hash.get(4).equals("#4"));
-//		
-//		assertTrue(hash.get(8).equals("#8"));
-//		
-//		for (int i = 0; i < 10; i++) {
-//			try {
-//				hash.remove(i);
-//			}catch (Exception e) {
-//				fail(" No debería pasar "); 
-//			}
-//				
-//		}
-//		
-//		assertTrue(hash.getSize() == 0);
-//		assertTrue(hash.isEmpty());
-//		
-//	}
-	
-	private void stageEmty() {
-		hash = new Hash<Integer, String>();
-	}
-	
-	
-	@Test
-	void testEmpty() {
-		stageEmty();
-		assertTrue(hash.getSize() == 0);
-		assertTrue(hash.isEmpty());
-	}
-	
-	
-
-
-//	@Test
-//	void testTwo() {
-//		stageOne();
-//		
-//		try {
-//			hash.remove(0);
-//		} catch (HashIsEmptyException | NonexistentKeyException e1) {
-//			assertTrue(e1 instanceof HashIsEmptyException);
-//		}
-//		
-//		for (int i = 0; i < 10; i++) {
-//			hash.put(i, "#"+i);
-//		}
-//	
-//		try {
-//			hash.remove(12);
-//		} catch (HashIsEmptyException | NonexistentKeyException e2) {
-//			assertTrue(e2 instanceof NonexistentKeyException);
-//		}
-//		
-//		for (int i = 0; i < 10; i++) {
-//			try {
-//				hash.remove(i);
-//			}catch (Exception e) {
-//				fail(" No debería pasar "); 
-//			}
-//				
-//		}
-//		
-//		assertTrue(hash.getSize() == 0);
-//		assertTrue(hash.isEmpty());
-//		
-//	}
-
-//	@Test
-//	void testThree() {
-//		stageOne();
-//		
-//		for (int i = 0; i < 10; i++) {
-//			hash.put(i, "#"+i);
-//		}
-//		
-//		hash.put(0, "#77");
-//		
-//		
-//
-//	}
 	
 	@Test
 	void testFour() {
-		stageOne();
+		setUpStageOne();
 		
-		for (int i = 0; i < 10; i++) {
-			try {
-				hash.put(i, "#"+i);
-				hash.put(i ,"#"+i+i); 
-				hash.remove(i);
+		try {
+			for (int i = 0; i < hash.getSize(); i++) {
+				hash.remove(i);	
+				assertTrue(hash.getSize() == 0);
 				
-				
-			} catch (HashIsEmptyException | NonexistentKeyException e) {}
+			}
 			
+		} catch (HashIsEmptyException | NonexistentKeyException e) {
+			
+			fail("Error en la prueba"); 
 		}
-		
-		for (int i = hash.getSize(); i >= hash.getSize() ; i--) {
 
-			assertTrue(hash.getObject(i).getValue().equals("#"+i+i));
-
-		}
-		
-		
+	}
+	
+	@Test
+	void testFive() {
+		setUpStageOne();
+		System.out.println(hash.getSize());
+		assertTrue(hash.getSize() == 10);
 		
 	}
+	
+	
+	
+	
 	
 	
 }

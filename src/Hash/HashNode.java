@@ -18,6 +18,7 @@ public class HashNode<K,V> {
 		size = 1; 
 		
 	}
+	
 
 	public K getKey() {
 		return key;
