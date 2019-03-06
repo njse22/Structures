@@ -14,14 +14,19 @@ class TestHash {
 	
 	private void stageOne() {
 		hash = new Hash<Integer, String>();
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 		
 	}	
 	
 =======
+=======
+		
+>>>>>>> Stashed changes
 		for (int i = 0; i < 10; i++) {
 			hash.put(i, "#"+i);
 		}
+		
 	}	
 	
 	private void stageEmty() {
@@ -42,9 +47,6 @@ class TestHash {
 	void testOne() {
 		stageOne();
 		
-		assertTrue(hash.getSize() == 0);
-		assertTrue(hash.isEmpty());
-	
 		assertTrue(hash.getSize() == 10);
 		assertFalse(hash.isEmpty());
 		
@@ -53,11 +55,13 @@ class TestHash {
 		assertTrue(hash.get(8).equals("#8"));
 		
 		for (int i = 0; i < 10; i++) {
-			try {
-				hash.remove(i);
-			}catch (Exception e) {
-				fail(" No debería pasar "); 
-			}
+				try {
+					hash.remove(i);
+				} catch (HashIsEmptyException | NonexistentKeyException e) {
+				
+					e.printStackTrace();
+				}
+				
 				
 		}
 		
@@ -68,7 +72,7 @@ class TestHash {
 
 	@Test
 	void testTwo() {
-		stageOne();
+		stageEmty();
 		
 		try {
 			hash.remove(0);
