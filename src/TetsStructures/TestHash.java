@@ -14,19 +14,36 @@ class TestHash {
 	
 	private void stageOne() {
 		hash = new Hash<Integer, String>();
+<<<<<<< HEAD
 		
 	}	
 	
+=======
+		for (int i = 0; i < 10; i++) {
+			hash.put(i, "#"+i);
+		}
+	}	
+	
+	private void stageEmty() {
+		hash = new Hash<Integer, String>();
+	}
+	
+	
+	@Test
+	void testEmpty() {
+		stageEmty();
+		assertTrue(hash.getSize() == 0);
+		assertTrue(hash.isEmpty());
+	}
+	
+	
+>>>>>>> master
 	@Test
 	void testOne() {
 		stageOne();
 		
 		assertTrue(hash.getSize() == 0);
 		assertTrue(hash.isEmpty());
-		
-		for (int i = 0; i < 10; i++) {
-			hash.put(i, "#"+i);
-		}
 	
 		assertTrue(hash.getSize() == 10);
 		assertFalse(hash.isEmpty());
@@ -106,8 +123,13 @@ class TestHash {
 				hash.put(i, "#"+i);
 				hash.put(i ,"#"+i+i); 
 				hash.remove(i);
+<<<<<<< HEAD
 				
 				
+=======
+				
+				
+>>>>>>> master
 			} catch (HashIsEmptyException | NonexistentKeyException e) {}
 			
 		}

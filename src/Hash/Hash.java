@@ -44,10 +44,14 @@ public class Hash<K ,V> implements IHash<K, V> {
 				
 				if(list.get(i).getKey() == key) {
 					if(validar(temp) != null) {
+<<<<<<< HEAD
 						
 						
 						
 						
+=======
+						
+>>>>>>> master
 						list.remove(temp);
 						temp.getNext().setPrevius(null);
 						list.add(temp.getNext()); 
@@ -68,7 +72,6 @@ public class Hash<K ,V> implements IHash<K, V> {
 		}
 
 	}
-					
 
 	@Override
 	public V get(K key) {
