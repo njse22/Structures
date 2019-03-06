@@ -4,15 +4,13 @@ public class Hash<K ,V> implements IHash<K, V> {
 
 public static final int INITIAL_SIZE = 18;
 	
-<<<<<<< Updated upstream
-	private int size;
+
+	
 	
 	private HashNode<K, V>[] list;
-=======
-	private ArrayList<HashNode<K, V>> list ; 
+ 
 	private int size; 
  
->>>>>>> Stashed changes
 	
 	@SuppressWarnings("unchecked")
 	public Hash() {
@@ -69,18 +67,6 @@ public static final int INITIAL_SIZE = 18;
 		
 	}
 
-	private HashNode<K, V> validar(HashNode<K, V> hash) {
-		HashNode<K, V> temp = null; 
-		for (HashNode<K, V> hashNode : list) {
-			if(hashNode.getKey().equals(hash.getKey())) {
-				temp = hashNode;  
-				break;  
-			}
-		}
-		
-		return temp;  
-	}
-	
 	public int h(K key) {
 		int index = key.hashCode();
 
@@ -93,31 +79,7 @@ public static final int INITIAL_SIZE = 18;
 		return index + 1;
 	}
 	
-<<<<<<< Updated upstream
-=======
-	public void initLis() {
-		HashNode<K, V> empty = new HashNode<K,V>(null, null); 
-		
-		for (int i = 0; i < INITIAL_SIZE; i++) {
-			list.add(null);
-		}
-	}
 	
-//	private boolean existColition(K key) {
-//		
-//		boolean existColition = false; 
-//		for (int i = 0; i < 1; i++) {
-//
-//			if(list.get(i).getKey().equals(key)) {
-//				existColition = true;
-//				
-//			} 
-//		}
-//		
-//		return existColition; 
-//	}
 	
-
->>>>>>> Stashed changes
 	
 }
