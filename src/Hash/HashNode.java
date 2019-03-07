@@ -87,7 +87,7 @@ public class HashNode<K,V extends Comparable<V>> {
 	public HashNode<K, V> getObjet(V value){
 		if(next != null) {
 			if(next.value.compareTo(value)== 0) {
-				return this;
+				return next;
 			}else {
 				return next.getObjet(value);
 			}

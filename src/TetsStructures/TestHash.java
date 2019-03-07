@@ -3,6 +3,8 @@ package TetsStructures;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+
 import org.junit.jupiter.api.Test;
 import Hash.Hash;
 import Hash.HashIsEmptyException;
@@ -42,12 +44,24 @@ class TestHash {
 		hash = new Hash<Integer, String>(); 
 	}
 	
+	private void setUpsetageFive() {
+		hash = new Hash<Integer, String>(); 
+		for (int i = 0; i < 10; i++) {
+			
+			hash.put(i, "#"+i);
+			hash.put(i ,"#"+i+i); 
+				
+		}
+		
+	}
+	
+	
 	@Test
 	void testOne() {
 		setUpStageOne();
 		assertTrue(hash.getSize() == 10);
 		for (int i = 0; i < hash.getSize(); i++) {
-			assertTrue(hash.get(11).equals("#"+i) );
+			assertTrue(hash.get(i).equals("#"+i) );
 		}
 	}
 	
@@ -91,13 +105,45 @@ class TestHash {
 	
 	@Test
 	void testFive() {
-		setUpStageOne();
-		System.out.println(hash.getSize());
-		assertTrue(hash.getSize() == 10);
+		setUpStageFour();
+		assertTrue(hash.getSize() == 0);
 		
 	}
 	
+	@Test
+	void testSix() {
+		setUpsetageFive();
+			try {
+				for (int j = 0; j < hash.getSize(); j++) {
+					System.out.println(hash.get(j));
+				}
+				
+				for (int i = 0; i < hash.getSize(); i++) {
+					assertTrue(hash.getObjet(i,"#"+i).getNext().getValue().equals("#"+i+i));
+				}
+			} catch (NonexistentKeyException e) {
+				fail(""); 
+			}
+		
+		
+	}
 	
+	@Test
+	void testSeven() {
+		setUpsetageFive();
+		try {
+
+			for (int i = 0; i < hash.getSize(); i++) {
+				hash.remove(i);
+			}
+		
+//			assertNull(hash.getObject().getNext());
+			
+		}catch (HashIsEmptyException | NonexistentKeyException e) {
+			
+		}	
+		
+	}
 	
 	
 	

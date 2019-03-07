@@ -22,7 +22,7 @@ public static final int INITIAL_SIZE = 18;
 	@Override
 	public void put(K key, V value) {
 		
-		int index = h(key);
+		int index = hashFuntion(key);
 		HashNode<K, V> nodeAdd = new HashNode<K, V>(key, value);
 
 		if(list[index]!= null) {
@@ -39,7 +39,7 @@ public static final int INITIAL_SIZE = 18;
 	@Override
 	public void remove(K key) throws HashIsEmptyException, NonexistentKeyException {
 		
-		int index = h(key);
+		int index = hashFuntion(key);
 		
 		if(isEmpty() == true) {
 			throw new HashIsEmptyException("");
@@ -59,7 +59,7 @@ public static final int INITIAL_SIZE = 18;
 	
 	public HashNode<K, V> getObjet(K key, V value) throws NonexistentKeyException{
 		
-		int index = h(key);
+		int index = hashFuntion(key);
 		
 		if(list[index]== null) {
 			throw new NonexistentKeyException("");
@@ -73,16 +73,10 @@ public static final int INITIAL_SIZE = 18;
 
 	@Override
 	public V get(K key) {
-		int index = h(key); 
-		for (HashNode<K, V> hashNode : list) {
-			if (hashNode.getKey().equals(index)) {
-				return hashNode.getValue(); 
-			}
-			
-		}
-		
-		return null;
-		
+		int index = hashFuntion(key); 
+		System.out.println(list[index]);
+		return list[index].getValue(); 
+
 	}
 	
 	@Override
@@ -97,7 +91,7 @@ public static final int INITIAL_SIZE = 18;
 		
 	}
 
-	public int h(K key) {
+	public int hashFuntion(K key) {
 		int index = key.hashCode();
 
 		if(index >  INITIAL_SIZE) {
