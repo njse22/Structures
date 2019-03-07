@@ -1,6 +1,6 @@
 package Hash;
 
-public class Hash<K ,V> implements IHash<K, V> {
+public class Hash<K ,V extends Comparable<V>> implements IHash<K, V> {
 
 public static final int INITIAL_SIZE = 18;
 	
@@ -63,7 +63,7 @@ public static final int INITIAL_SIZE = 18;
 		
 		if(list[index]== null) {
 			throw new NonexistentKeyException("");
-		}else if(list[index].getNext() == null && list[index].getValue().equals(value)) {
+		}else if(list[index].getNext() == null && list[index].getValue().compareTo(value) == 0) {
 			return list[index];
 		}else {
 			return list[index].getObjet(value);

@@ -1,6 +1,6 @@
 package Hash;
 
-public class HashNode<K,V> {
+public class HashNode<K,V extends Comparable<V>> {
 
 	private K key; 
 	private V value; 
@@ -86,7 +86,7 @@ public class HashNode<K,V> {
 	
 	public HashNode<K, V> getObjet(V value){
 		if(next != null) {
-			if(next.value.equals(value)) {
+			if(next.value.compareTo(value)== 0) {
 				return this;
 			}else {
 				return next.getObjet(value);
