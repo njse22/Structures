@@ -69,9 +69,31 @@ public class HashNode<K,V> {
 			next.add(agregate);
 		}
 	}
+	
+	public void  romoveLast() {
+		if(next.getNext() == null) {
+			next.setPrevius(null);
+			next = null;
+		}else {
+			next.romoveLast();
+		}
+	}
+	
 	public void incrementSize(int size) {
 		this.size += size;
 
+	}
+	
+	public HashNode<K, V> getObjet(V value){
+		if(next != null) {
+			if(next.value.equals(value)) {
+				return this;
+			}else {
+				return next.getObjet(value);
+			}
+		}else {
+			return null;
+		}
 	}
 	
 	

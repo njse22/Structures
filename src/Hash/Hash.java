@@ -38,7 +38,37 @@ public static final int INITIAL_SIZE = 18;
 
 	@Override
 	public void remove(K key) throws HashIsEmptyException, NonexistentKeyException {
+		
+		int index = h(key);
+		
+		if(isEmpty() == true) {
+			throw new HashIsEmptyException("");
+		}else {
+			if(list[index] == null) {
+				throw new NonexistentKeyException("");
+			}else {
+				if(list[index].getNext() == null) {
+					list[index] = null;
+				}else {
+					list[index].romoveLast();
+				}
+			}
+		}
 			
+	}
+	
+	public HashNode<K, V> getObjet(K key, V value) throws NonexistentKeyException{
+		
+		int index = h(key);
+		
+		if(list[index]== null) {
+			throw new NonexistentKeyException("");
+		}else if(list[index].getNext() == null && list[index].getValue().equals(value)) {
+			return list[index];
+		}else {
+			return list[index].getObjet(value);
+		}
+		
 	}
 
 	@Override
