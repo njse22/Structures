@@ -1,5 +1,7 @@
 package Hash;
 
+import Trees.NodeNotFoundException;
+
 public class HashNode<K,V extends Comparable<V>> {
 
 	private K key; 
@@ -72,7 +74,6 @@ public class HashNode<K,V extends Comparable<V>> {
 	
 	public void  romoveLast() {
 		if(next.getNext() == null) {
-			next.setPrevius(null);
 			next = null;
 		}else {
 			next.romoveLast();
@@ -84,7 +85,7 @@ public class HashNode<K,V extends Comparable<V>> {
 
 	}
 	
-	public HashNode<K, V> getObjet(V value){
+	public HashNode<K, V> getObjet(V value) throws NonexistentKeyException{
 		if(next != null) {
 			if(next.value.compareTo(value)== 0) {
 				return next;
@@ -92,7 +93,7 @@ public class HashNode<K,V extends Comparable<V>> {
 				return next.getObjet(value);
 			}
 		}else {
-			return null;
+			throw new NonexistentKeyException("");
 		}
 	}
 	

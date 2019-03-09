@@ -6,7 +6,7 @@ public interface IHash<K, V> {
 	
 	public void remove(K key) throws HashIsEmptyException, NonexistentKeyException;
 	
-	public V get(K key); 
+	public V get(K key);
 	
 	public int getSize();
 	

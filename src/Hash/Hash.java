@@ -1,12 +1,11 @@
 package Hash;
 
+import Trees.NodeNotFoundException;
+
 public class Hash<K ,V extends Comparable<V>> implements IHash<K, V> {
 
-public static final int INITIAL_SIZE = 18;
-	
+public static final int INITIAL_SIZE = 15;
 
-	
-	
 	private HashNode<K, V>[] list;
  
 	private int size; 
@@ -27,7 +26,7 @@ public static final int INITIAL_SIZE = 18;
 
 		if(list[index]!= null) {
 			list[index].add(nodeAdd);
-			size++;
+			
 		}else {
 			list[index] = nodeAdd;
 			size++;
@@ -49,8 +48,9 @@ public static final int INITIAL_SIZE = 18;
 			}else {
 				if(list[index].getNext() == null) {
 					list[index] = null;
+					size--; 
 				}else {
-					list[index].romoveLast();
+					list[index].romoveLast(); 
 				}
 			}
 		}
@@ -62,10 +62,13 @@ public static final int INITIAL_SIZE = 18;
 		int index = hashFuntion(key);
 		
 		if(list[index]== null) {
-			throw new NonexistentKeyException("");
+			throw new NonexistentKeyException("the object whit the key: "+ key + " non Exist" );
 		}else if(list[index].getNext() == null && list[index].getValue().compareTo(value) == 0) {
 			return list[index];
-		}else {
+		}else if(list[index].getNext() != null && list[index].getValue().compareTo(value) == 0) {
+			return list[index];
+		}
+		else {
 			return list[index].getObjet(value);
 		}
 		
@@ -74,7 +77,6 @@ public static final int INITIAL_SIZE = 18;
 	@Override
 	public V get(K key) {
 		int index = hashFuntion(key); 
-		System.out.println(list[index]);
 		return list[index].getValue(); 
 
 	}
