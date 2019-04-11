@@ -1,4 +1,4 @@
-package heaps;
+package Heap;
 
 public class MinHeap<T extends Comparable<T>> {
     private T[] Heap;

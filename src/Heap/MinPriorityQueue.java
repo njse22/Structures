@@ -1,4 +1,4 @@
-package heaps;
+package Heap;
 
 public class MinPriorityQueue<T extends Comparable<T>>  {
 
