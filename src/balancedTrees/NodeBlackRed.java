@@ -60,7 +60,7 @@ public class NodeBlackRed<T extends Comparable<T>> extends NodeABB<T> {
 		else 
 			this.color = RED; 
 	}
-	
+
 	
 	
 	

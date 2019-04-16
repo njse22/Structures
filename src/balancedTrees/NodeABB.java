@@ -82,11 +82,12 @@ public class NodeABB<T extends Comparable<T> > implements Comparable<NodeABB<T>>
 		else 
 			return left.minimun();
 	}
-		
+
 	public boolean add(NodeABB<T> newElement) {
 		if(this.getValue().compareTo(newElement.getValue()) > 0) {
 			if(left == null) {
 				left = newElement;
+				left.father = this;
 				return true;
 			}
 				
@@ -99,6 +100,7 @@ public class NodeABB<T extends Comparable<T> > implements Comparable<NodeABB<T>>
 		else
 			if(right == null) {
 				right = newElement;
+				right.father = this; 
 				return true;
 			} 
 				
@@ -208,18 +210,23 @@ public class NodeABB<T extends Comparable<T> > implements Comparable<NodeABB<T>>
 		return this.getLeft() == null && this.getRight() == null; 
 	}
 
-	@SuppressWarnings("unused")
-	public int calculateHeight() {
-	   int height = 0; 
-		if (this.isSon())
-	    	return height; 
-		
-	    else if (this != null) {
-	    	height++; 
-	        return this.left.calculateHeight() +  this.right.calculateHeight();        
-	    }
-	    return height; 
-	 }
+//	@SuppressWarnings("unused")
+//	public int calculateHeight() {
+//	   int height = 0; 
+//		if (this.isSon())
+//	    	return height; 
+//		
+//	    else if (this != null) {
+//	    	height++; 
+//	    	if(this.left != null) {
+//	    		height += this.left.calculateHeight(); 
+//	    	}
+//	    	if(this.right != null)
+//	    		height += this.right.calculateHeight();
+//	        //return this.left.calculateHeight() +  this.right.calculateHeight();        
+//	    }
+//	    return height; 
+//	 }
 
 	@Override
 	public int compareTo(NodeABB<T> o) {

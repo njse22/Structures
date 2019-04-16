@@ -11,10 +11,13 @@ public class NodeAVL <T extends Comparable<T>> extends NodeABB<T> {
 		this.balancedFactor = balancedFactor;
 	}
 
-	public NodeAVL() {
-		super(null, null, null, null);
+	public NodeAVL(T value) {
+		super(value, null, null, null);
 		this.balancedFactor = 0;
 	}
+	
+	
+	
 
 	public int getBalancedFactor() {
 		return balancedFactor;
@@ -25,21 +28,47 @@ public class NodeAVL <T extends Comparable<T>> extends NodeABB<T> {
 	} 
 	
 	public int calculateBalanceFactor() {
-		int p1 , p2 ;
-		if ( this.getLeft() == null )
-			p1 = 0 ;
-		else
-			p1 = ((NodeAVL<T>) this.getLeft()).calculateBalanceFactor() ;
-		if ( this.getRight() == null )
-			p2 = 0 ;
-		else
-			p2 = ((NodeAVL<T>) this.getRight()).calculateBalanceFactor() ;
-		return p1 - p2 ;
-			
-		 
+		if(this.isSon()) {
+			return 0; 
+		}
+		else { 
+			int fb = 0;
+			int lefht = 0; 
+			int right = 0; 
+			if(this.haveRightSon()) { 
+				right += ((NodeAVL<T>) this.getRight()).calculateBalanceFactor()+1;
+			}
+			if(this.haveLeftSon()) { 
+				lefht += ((NodeAVL<T>) this.getLeft()).calculateBalanceFactor()+1;
+			}
+			return fb = right - lefht; 
+		}
 	}
-
-
+	
+	public int balanceFactor () {
+		int r = 0, l = 0; 
+		
+		if(this.haveLeftSon())
+			l = ((NodeAVL<T>) this.getLeft()).calculateHeight(); 
+		if(this.haveRightSon())
+			r = ((NodeAVL<T>) this.getRight()).calculateHeight(); 
+		
+		return r - l ; 
+		
+	}
+		 
+	public int calculateHeight() {
+		int countR = 0; 
+		int countL = 0; 
+		if(this.haveRightSon()) {
+			countR +=  ((NodeAVL<T>) this.getRight()).calculateHeight() + 1;
+		}
+		if(this.haveLeftSon()) {
+			countL +=  ((NodeAVL<T>) this.getLeft()).calculateHeight() + 1;
+		}
+		return Math.max(countL, countR); 
+	}
+	
 	
 	
 	
