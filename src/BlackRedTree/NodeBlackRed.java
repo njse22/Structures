@@ -170,28 +170,48 @@ public class NodeBlackRed< T, K extends Comparable<K> > implements Comparable<No
 		
 	}	
 
-	public NodeBlackRed<T,K> remove(NodeBlackRed<T,K> delete) {
-		if(left == null && right == null) {
-			return null;
-		}	
-		if(this.getKey().compareTo(delete.getKey()) == 0) {
-			if(left == null)
-				return right;
-			if(right == null)
-				return left;
+	public NodeBlackRed<T, K> remove(K key) {
 		
-			NodeBlackRed<T,K> successor = right.minimun();
-			right.remove(successor);
-			successor.left = left;
-			successor.right = right;
-			return successor;
-			
-		}
-		else if(this.getKey().compareTo(delete.getKey()) > 0)
-			left = left.remove(delete);
+		if( (this.getKey().compareTo(key) == 0 )  ) {
+		
+			if(this.isSon()) {
+				this.setFather(null);
+				return null;
+			}
+			else {
+
+				if(this.haveRightSon() && this.haveLeftSon()) {
+					NodeBlackRed<T,K> successor = this.left.maximum();
+					successor.setRight(this.getRight());
+					successor.setLeft(this.getLeft());
+					successor.setFather(this.getFather());
+					
+					this.setLeft(null);
+					this.setRight(null);
+					this.setFather(null);
+					
+					return successor; 
+				}
+				
+				if(this.haveLeftSon()) {
+					this.getLeft().setFather(this.getFather());
+					this.setFather(null);
+					this.setLeft(null);
+				}
+				if(this.haveRightSon()) {
+					this.getRight().setFather(this.getFather());
+					this.setFather(null);
+					this.setRight(null);
+				}
+			}
+		}	
+		
+		else if(this.getKey().compareTo(key) > 0)
+			return left.remove(key);
 		else 
-			right = right.remove(delete);
-		return this;
+			return right.remove(key);
+		
+		return null; 
 	}
 
 	/**

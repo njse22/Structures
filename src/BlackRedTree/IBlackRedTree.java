@@ -12,7 +12,7 @@ public interface IBlackRedTree<T, K extends Comparable<K>> {
 	
 	public NodeBlackRed<T,K> minimum( NodeBlackRed<T,K> reference );
 	
-	public void remove(NodeBlackRed<T,K> reference); 
+	public void remove(K key); 
 
 	public NodeBlackRed<T,K> search(K key) throws NodeNotFoundException; 
 	
