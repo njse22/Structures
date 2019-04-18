@@ -298,10 +298,31 @@ class TestBlackRedTree {
 		
 		tree.remove(10);
 		
-		System.out.println(tree.getRoot().getKey());
-//		assertTrue(tree.getRoot().getLeft().getLeft() == null);
+		//se remplazo la raíz por el secesor 
+		assertTrue(tree.getRoot().getLeft().getRight() == null);
+		
+		assertTrue(tree.getRoot().getKey() == 6);
+		assertTrue(tree.getRoot().getColor() == NodeBlackRed.BLACK);
+		
+		assertTrue(tree.getRoot().getLeft().getKey() == 5); 
+		assertTrue(tree.getRoot().getLeft().getColor() == NodeBlackRed.BLACK);
+		assertTrue(tree.getRoot().getLeft().getLeft().getKey() == 3);
+		assertTrue(tree.getRoot().getLeft().getLeft().getColor() == NodeBlackRed.RED);
+		
+		assertTrue(tree.getRoot().getRight().getKey() == 12);
+		assertTrue(tree.getRoot().getRight().getColor() == NodeBlackRed.BLACK);
+		assertTrue(tree.getRoot().getRight().getRight().getKey() == 20);
+		assertTrue(tree.getRoot().getRight().getRight().getColor() == NodeBlackRed.RED);
 		
 		
+		/*
+		 *       10                  6
+		 * 		/  \                / \
+		 *     5    12     -->     5   12
+		 * 	  / \     \           /     \
+		 *   3  6     20         3       20
+		 * 
+		 * */
 		
 		
 		

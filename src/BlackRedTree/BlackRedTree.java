@@ -58,12 +58,46 @@ public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T,
 
 	@Override
 	public void remove(K key) {
-		root.remove(key);
+		try {
+			NodeBlackRed<T, K> tenp = search(key);
+			
+			if (tenp.isRoot()) {
+				NodeBlackRed<T, K> successor = root.getLeft().maximum();
+				
+				NodeBlackRed<T,K> x = successor.getFather(); 
+				
+				successor.setRight(root.getRight());
+				successor.setLeft(root.getLeft());
+				successor.setFather(tenp.getFather());
+				
+				root.setLeft(null);
+				root.setRight(null);
+				root.setFather(null);
+				
+				x.setRight(null);
+				
+				root = successor; 
+				if(root.getColor() == NodeBlackRed.RED)
+					root.rePaint();
+				
+				balancedTree(x);
+				
+			}else {
+				balancedTree( root.remove(key) );
+				
+			}
+
 		
-		if (root.remove(key) != null)
-			balancedTree(root.minimun());	
+			
+		} catch (NodeNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
+	
 	@Override
 	public NodeBlackRed<T, K> search(K key) throws NodeNotFoundException {
 		if(root == null) 

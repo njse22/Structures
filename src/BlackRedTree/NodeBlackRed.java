@@ -182,6 +182,7 @@ public class NodeBlackRed< T, K extends Comparable<K> > implements Comparable<No
 
 				if(this.haveRightSon() && this.haveLeftSon()) {
 					NodeBlackRed<T,K> successor = this.left.maximum();
+					NodeBlackRed<T, K> x = successor.getFather();  
 					successor.setRight(this.getRight());
 					successor.setLeft(this.getLeft());
 					successor.setFather(this.getFather());
@@ -190,18 +191,22 @@ public class NodeBlackRed< T, K extends Comparable<K> > implements Comparable<No
 					this.setRight(null);
 					this.setFather(null);
 					
-					return successor; 
+					return x; 
 				}
 				
 				if(this.haveLeftSon()) {
+					NodeBlackRed<T, K> x = this.getLeft(); 
 					this.getLeft().setFather(this.getFather());
 					this.setFather(null);
 					this.setLeft(null);
+					return x; 
 				}
 				if(this.haveRightSon()) {
+					NodeBlackRed<T, K> x = this.getRight();
 					this.getRight().setFather(this.getFather());
 					this.setFather(null);
 					this.setRight(null);
+					return x; 
 				}
 			}
 		}	
