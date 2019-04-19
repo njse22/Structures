@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
+
 public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T, K> {
 
 	private NodeBlackRed<T,K> root;
@@ -74,7 +76,9 @@ public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T,
 				delete.setRight(null);
 				delete.setLeft(null);
 				
-				root = sucessor; 
+				root = sucessor;
+				if(root.getColor() == NodeBlackRed.RED)
+					root.rePaint();
 				
 				balancedTree(predecessor);
 				
@@ -158,8 +162,10 @@ public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T,
 		y.setFather(reference.getFather());
 		reference.setFather(y);
 		y.setLeft(reference);
+		reference.setRight(null);
 		
 	}
+	
 	
 	@Override
 	public void leftRotate(NodeBlackRed<T, K> reference) {
@@ -196,7 +202,7 @@ public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T,
 		y.setFather(reference.getFather());
 		reference.setFather(y);
 		y.setRight(reference);
-		
+		reference.setLeft(null);;
 	}
 	
 	
@@ -266,12 +272,14 @@ public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T,
 				else {
 					if(newElement.isRigthSon()) {
 						newElement = newElement.getFather(); 
-						leftRotate(newElement);
+						lefth(newElement);
 					}
 					if(!newElement.isRoot()) {
 						newElement.getFather().setColor(NodeBlackRed.BLACK); 
-						newElement.getGrandFather().setColor(NodeBlackRed.RED);
-						rigthRotate(newElement.getFather());
+						if(newElement.getGrandFather() != null) {
+							newElement.getGrandFather().setColor(NodeBlackRed.RED);
+							rigthRotate(newElement.getFather());
+						}
 					}
 				}
 			
@@ -330,13 +338,13 @@ public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T,
 		List<NodeBlackRed<T,K>> newNodes = new ArrayList<NodeBlackRed<T,K>>(); 
 		  for (NodeBlackRed<T,K> node : singletonList) {
 	            if (node != null) {
-	                System.out.print(node.getValue() + " ");
+	                System.out.print(node.getKey() );
 	                newNodes.add(node.getLeft());
 	                newNodes.add( node.getRight());
 	            } else {
 	                newNodes.add(null);
 	                newNodes.add(null);
-	                System.out.print(" ");
+	                System.out.print("");
 	            }
 	
 	           printWhitespaces(betweenSpaces);

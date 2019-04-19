@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+
 class TestBlackRedTree {
 
 	private BlackRedTree<String, Integer> tree; 
@@ -328,6 +329,47 @@ class TestBlackRedTree {
 		
 	}
 	
+	@Test
+	void testSeven() {
+		setUpStageOne();
+
+		NodeBlackRed<String,Integer> newElement = new NodeBlackRed<String,Integer>("a",10); 
+		NodeBlackRed<String,Integer> a = new NodeBlackRed<String,Integer>("b",3);
+		NodeBlackRed<String,Integer> b = new NodeBlackRed<String,Integer>("c",20);
+		NodeBlackRed<String,Integer> c = new NodeBlackRed<String,Integer>("d",6);
+		NodeBlackRed<String,Integer> d = new NodeBlackRed<String,Integer>("e",15);		
+		NodeBlackRed<String,Integer> e = new NodeBlackRed<String,Integer>("d",5);
+		NodeBlackRed<String,Integer> f = new NodeBlackRed<String,Integer>("f",19);
+		
+		tree.add(newElement);		
+		tree.add(a);
+		tree.add(b);
+		tree.add(c);
+		tree.add(d);
+		tree.add(e);
+		tree.add(f);
+		
+		assertTrue(tree.getRoot().getKey() == 10);
+		assertTrue(tree.getRoot().getLeft().getKey() == 5);
+		assertTrue(tree.getRoot().getRight().getKey() == 19);
+		assertTrue(tree.getRoot().getRight().getRight().getKey() == 20);
+		assertTrue(tree.getRoot().getRight().getLeft().getKey() == 15);
+		assertTrue(tree.getRoot().getLeft().getRight().getKey() == 6);
+		assertTrue(tree.getRoot().getLeft().getLeft().getKey() == 3);
+		
+		/*
+		 * 			10						
+		 * 		   /   \				  
+		 * 		  5     19          
+		 * 		 / \    / \            
+		 *      3   6  15  20       
+		 *      
+		 * */
+		
+		tree.printNode(tree.getRoot());
+		
+		
+	}
 	
 	
 	

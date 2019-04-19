@@ -53,7 +53,7 @@ class TestAVLTree {
 		 *      
 		 * */
 		
-//		tree.printNode(tree.getRoot());
+		tree.printNode(tree.getRoot());
 		
 		
 	}
