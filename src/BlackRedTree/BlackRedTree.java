@@ -111,6 +111,15 @@ public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T,
 		return root.getLeft().maximum();
 	}
 
+	
+	public void lefth(NodeBlackRed<T, K> reference) {
+		NodeBlackRed<T,K> y = reference.getRight(); 
+		y.setFather(reference.getFather());
+		reference.setFather(y);
+		y.setLeft(reference);
+		
+	}
+	
 	@Override
 	public void leftRotate(NodeBlackRed<T, K> reference) {
 		if(reference.getFather() != null) {
