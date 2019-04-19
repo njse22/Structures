@@ -59,42 +59,83 @@ public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T,
 	@Override
 	public void remove(K key) {
 		try {
-			NodeBlackRed<T, K> tenp = search(key);
-			
-			if (tenp.isRoot()) {
-				NodeBlackRed<T, K> successor = root.getLeft().maximum();
+			NodeBlackRed<T, K> delete = search(key);
+			if(delete.isRoot()) {
 				
-				NodeBlackRed<T,K> x = successor.getFather(); 
+				NodeBlackRed<T, K> sucessor = delete.getLeft().maximum(); 
+				NodeBlackRed<T, K> predecessor = delete.getRight().minimun(); 
+				/* remplece  delete for the sucessor */
+				sucessor.getFather().setRight(null);
+				sucessor.setLeft(delete.getLeft());
+				sucessor.setRight(delete.getRight());
+				sucessor.setFather(delete.getFather());
+				/* desconect the delete  */
+				delete.setFather(null);
+				delete.setRight(null);
+				delete.setLeft(null);
 				
-				successor.setRight(root.getRight());
-				successor.setLeft(root.getLeft());
-				successor.setFather(tenp.getFather());
+				root = sucessor; 
 				
-				root.setLeft(null);
-				root.setRight(null);
-				root.setFather(null);
-				
-				x.setRight(null);
-				
-				root = successor; 
-				if(root.getColor() == NodeBlackRed.RED)
-					root.rePaint();
-				
-				balancedTree(x);
+				balancedTree(predecessor);
 				
 			}else {
-				balancedTree( root.remove(key) );
+				if (delete.isSon()) {
+					
+					if(delete.isLeftSon()) 
+						delete.getFather().setLeft(null);
+					else
+						delete.getFather().setRight(null);
+					
+					delete.setFather(null);	
+					
+				}else if(delete.haveLeftSon() && delete.haveRightSon()) {
+
+					NodeBlackRed<T, K> sucessor = delete.getLeft().maximum(); 
+					NodeBlackRed<T, K> predecessor = delete.getRight().minimun(); 
+					/* remplece  delete for the sucessor */
+//					sucessor.getFather().setRight(null);
+					
+					if(delete.getLeft().getKey().compareTo(sucessor.getKey()) == 0 )
+						sucessor.setLeft(null);
+					else 
+						sucessor.setLeft(delete.getLeft());
+					
+					sucessor.setRight(delete.getRight()); 
+					sucessor.setFather(delete.getFather());
+					
+					/* conect sucesor */
+					if(delete.isRigthSon())
+						delete.getFather().setRight(sucessor);
+					else if(delete.isLeftSon())
+						delete.getFather().setLeft(sucessor);
+					
+					/* desconect the delete  */
+					delete.setFather(null);
+					delete.setRight(null);
+					delete.setLeft(null);
+					
+					balancedTree(predecessor);
+				}else {
+					if(delete.haveLeftSon()) {
+						delete.getLeft().setFather(delete.getFather());
+						delete.getFather().setLeft(delete.getLeft());
+						delete.setRight(null);
+						delete.setFather(null);
+						delete.setLeft(null);
+					}else {
+						delete.getRight().setFather(delete.getFather());
+						delete.getFather().setRight(delete.getRight());
+						delete.setLeft(null);
+						delete.setFather(null);
+						delete.setRight(null);
+					}
+				}
 				
 			}
-
-		
-			
-		} catch (NodeNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		
-		
+		catch (NodeNotFoundException e) {
+			 
+		}		
 	}
 
 	
@@ -127,6 +168,8 @@ public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T,
 			if(reference.getLeft() != null) {
 				NodeBlackRed<T,K> b = reference.getLeft(); 
 				x.setRight(b);
+			}else {
+				x.setRight(null);
 			}
 			
 			reference.setFather(x.getFather());
@@ -166,7 +209,10 @@ public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T,
 			if(reference.getRight() != null) {
 				NodeBlackRed<T,K> b = reference.getRight(); 
 				y.setLeft(b);
+			}else {
+				y.setLeft(null);
 			}
+			
 			reference.setFather(y.getFather());
 			
 			if(y.getFather() == null) {
@@ -345,9 +391,8 @@ public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T,
 	private int maxLevel(NodeBlackRed<T,K> node) {
 		if(node == null ) {
 			return 0; 
-		}
-		else 
-			return Math.max(maxLevel( node.getLeft()), maxLevel( node.getRight()));
+		} 
+		return Math.max(maxLevel( node.getLeft()), maxLevel( node.getRight())) + 1;
 	}
 	
 	

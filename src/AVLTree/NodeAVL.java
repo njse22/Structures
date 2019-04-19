@@ -159,7 +159,13 @@ public class NodeAVL< T,K extends Comparable<K> > implements Comparable<NodeAVL<
 		if( (this.getKey().compareTo(key) == 0 )  ) {
 			
 			if(this.isSon()) {
+				NodeAVL<T,K> y = this.getFather(); 
 				this.setFather(null);
+				if(this.isLeftSon())
+					y.setLeft(null);
+				else 
+					y.setRight(null);
+				
 				return null;
 			}
 			else {
