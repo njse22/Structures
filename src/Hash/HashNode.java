@@ -1,7 +1,5 @@
 package Hash;
 
-import Trees.NodeNotFoundException;
-
 public class HashNode<K,V extends Comparable<V>> {
 
 	private K key; 

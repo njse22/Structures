@@ -1,7 +1,5 @@
 package Hash;
 
-import Trees.NodeNotFoundException;
-
 public class Hash<K ,V extends Comparable<V>> implements IHash<K, V> {
 
 public static final int INITIAL_SIZE = 15;
