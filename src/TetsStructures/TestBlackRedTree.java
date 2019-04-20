@@ -5,6 +5,9 @@ import BlackRedTree.NodeBlackRed;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 
@@ -366,10 +369,11 @@ class TestBlackRedTree {
 		 *      
 		 * */
 		
-		tree.printNode(tree.getRoot());
+//		tree.printNode(tree.getRoot());
 		
 		
 	}
+	
 	
 	
 	

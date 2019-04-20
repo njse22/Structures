@@ -7,7 +7,13 @@ import java.util.List;
 public class AVLTree <T,K extends Comparable<K>> implements IAVLTree<T, K>{
 
 	private NodeAVL<T, K> root; 
+	private List<K> keys = new ArrayList<K>();
 	private int size; 
+	
+	public List<K> getKeys() {
+		getAllKeys(root);
+		return keys;
+	}
 	
 	@Override
 	public void add(NodeAVL<T, K> newElement) {
@@ -25,8 +31,7 @@ public class AVLTree <T,K extends Comparable<K>> implements IAVLTree<T, K>{
 			if( newElement.getGrandFather() != null) {
 				balancedTree(newElement);
 			}
-		}
-		
+		}	
 	}
 
 	@Override
@@ -55,7 +60,6 @@ public class AVLTree <T,K extends Comparable<K>> implements IAVLTree<T, K>{
 			return root.minimun();
 	}
 
-	
 	@Override
 	public void remove(K key) {
 		try {
@@ -93,7 +97,6 @@ public class AVLTree <T,K extends Comparable<K>> implements IAVLTree<T, K>{
 					NodeAVL<T, K> sucessor = delete.getLeft().maximum(); 
 					NodeAVL<T, K> predecessor = delete.getRight().minimun(); 
 					/* remplece  delete for the sucessor */
-//					sucessor.getFather().setRight(null);
 					
 					if(delete.getLeft().getKey().compareTo(sucessor.getKey()) == 0 )
 						sucessor.setLeft(null);
@@ -134,7 +137,6 @@ public class AVLTree <T,K extends Comparable<K>> implements IAVLTree<T, K>{
 			}
 		}
 		catch (NodeNotFoundException e) {
-			 
 		}
 	}
 
@@ -157,9 +159,7 @@ public class AVLTree <T,K extends Comparable<K>> implements IAVLTree<T, K>{
 		reference.setFather(y);
 		y.setLeft(reference);
 		reference.setRight(null);
-		
 	}
-	
 	
 	@Override
 	public void leftRotate(NodeAVL<T, K> reference) {
@@ -197,8 +197,7 @@ public class AVLTree <T,K extends Comparable<K>> implements IAVLTree<T, K>{
 		y.setFather(reference.getFather());
 		reference.setFather(y);
 		y.setRight(reference);
-		reference.setLeft(null);
-		
+		reference.setLeft(null);	
 	}
 
 	@Override
@@ -229,7 +228,6 @@ public class AVLTree <T,K extends Comparable<K>> implements IAVLTree<T, K>{
 			reference.setRight(y);
 			reference.setFather(y.getFather());
 		}		
-		
 	}
 
 	@Override
@@ -246,7 +244,6 @@ public class AVLTree <T,K extends Comparable<K>> implements IAVLTree<T, K>{
 		
 		return exist;	
 	}
-	
 
 	private void balancedTree(NodeAVL<T, K> newElement) {
 		
@@ -267,11 +264,20 @@ public class AVLTree <T,K extends Comparable<K>> implements IAVLTree<T, K>{
 				}
 				if(newElement.isLeftSon() | newElement.getFather().balanceFactor() == 0) {
 					rigthRotate(newElement.getFather());
-				}
-				
+				}				
 			}
 		}
 	}
+	
+	private void getAllKeys(NodeAVL<T, K> node){
+		 
+		if(node != null) {
+			getAllKeys(node.getLeft());
+			keys.add( node.getKey() ); 
+			getAllKeys(node.getRight());
+		}
+	}
+	
 	
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 

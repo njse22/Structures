@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
-
 public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T, K> {
 
 	private NodeBlackRed<T,K> root;
+	private List<K> keys = new ArrayList<K>();; 
 	private int size; 
 	
+	public List<K> getKeys() {
+		getAllKeys(root);
+		return keys;
+	}
+
 	@Override
 	public void add(NodeBlackRed<T, K> newElement) {
 		if(root == null) {
@@ -27,11 +31,9 @@ public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T,
 			if( newElement.getGrandFather() != null) {
 				balancedTree(newElement);
 			}
-		}
-		
-		
+		}	
 	}
-
+	
 	@Override
 	public NodeBlackRed<T, K> getRoot() {
 		return root;
@@ -97,7 +99,6 @@ public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T,
 					NodeBlackRed<T, K> sucessor = delete.getLeft().maximum(); 
 					NodeBlackRed<T, K> predecessor = delete.getRight().minimun(); 
 					/* remplece  delete for the sucessor */
-//					sucessor.getFather().setRight(null);
 					
 					if(delete.getLeft().getKey().compareTo(sucessor.getKey()) == 0 )
 						sucessor.setLeft(null);
@@ -134,14 +135,11 @@ public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T,
 						delete.setRight(null);
 					}
 				}
-				
 			}
 		}
-		catch (NodeNotFoundException e) {
-			 
+		catch (NodeNotFoundException e) {			 
 		}		
 	}
-
 	
 	@Override
 	public NodeBlackRed<T, K> search(K key) throws NodeNotFoundException {
@@ -156,17 +154,14 @@ public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T,
 		return root.getLeft().maximum();
 	}
 
-	
 	public void lefth(NodeBlackRed<T, K> reference) {
 		NodeBlackRed<T,K> y = reference.getRight(); 
 		y.setFather(reference.getFather());
 		reference.setFather(y);
 		y.setLeft(reference);
-		reference.setRight(null);
-		
+		reference.setRight(null);		
 	}
-	
-	
+
 	@Override
 	public void leftRotate(NodeBlackRed<T, K> reference) {
 		if(reference.getFather() != null) {
@@ -191,10 +186,8 @@ public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T,
 			}
 			
 			reference.setLeft(x);
-			reference.setFather(x.getFather());
-			
+			reference.setFather(x.getFather());	
 		}
-
 	}
 
 	public void rigth(NodeBlackRed<T, K> reference) {
@@ -282,10 +275,8 @@ public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T,
 						}
 					}
 				}
-			
 			}else {
 				if( newElement.getFather().isRigthSon() ) {
-					NodeBlackRed<T,K> y = newElement.getGrandFather().getLeft();
 					if(newElement.getGrandFather().getLeft() != null && 
 							newElement.getGrandFather().getLeft().getColor() == NodeBlackRed.RED) {
 						
@@ -306,15 +297,25 @@ public class BlackRedTree<T,K extends Comparable<K>> implements IBlackRedTree<T,
 							rigth(newElement);
 						}
 						newElement.getFather().setColor(NodeBlackRed.BLACK); 
-						
-//						if(newElement.getGrandFather() != null)
-							newElement.getGrandFather().setColor(NodeBlackRed.RED);
+						newElement.getGrandFather().setColor(NodeBlackRed.RED);
 						leftRotate(newElement.getFather());
 					}
 				}		
 			}
 		}
 	}	
+	
+	private void getAllKeys(NodeBlackRed<T, K> node){
+	 
+		if(node != null) {
+		
+			getAllKeys(node.getLeft());
+			keys.add( node.getKey() ); 
+			getAllKeys(node.getRight());
+		 
+		}
+	}
+	
 	
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
